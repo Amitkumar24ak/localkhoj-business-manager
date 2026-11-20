@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#123b72">
+  <meta name="description" content="LocalKhoj Business Manager - local business profile audit and client tracker">
+  <title>LocalKhoj Business Manager</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">📍 LocalKhoj <span>Business Manager</span></div>
+  <p>दुकानों की जानकारी, ग्राहक और पेमेंट एक जगह</p>
+</header>
+
+<nav class="tabs" aria-label="मुख्य मेन्यू">
+  <button class="tab active" data-page="home">होम</button>
+  <button class="tab" data-page="audit">प्रोफाइल चेक</button>
+  <button class="tab" data-page="clients">ग्राहक</button>
+  <button class="tab" data-page="income">कमाई</button>
+</nav>
+
+<main>
+  <section id="home" class="page active">
+    <div class="hero">
+      <h1>LocalKhoj में आपका स्वागत है 👋</h1>
+      <p>अपने लोकल बिज़नेस ग्राहकों की जानकारी व्यवस्थित रखें।</p>
+      <a class="primary linkbtn" href="https://www.google.com/maps" target="_blank" rel="noopener">Google Maps खोलें ↗</a>
+    </div>
+    <div class="cards">
+      <article class="stat"><span>कुल ग्राहक</span><strong id="clientCount">0</strong></article>
+      <article class="stat"><span>पेमेंट मिला</span><strong id="paidTotal">₹0</strong></article>
+      <article class="stat"><span>पेमेंट बाकी</span><strong id="dueTotal">₹0</strong></article>
+    </div>
+    <div class="panel">
+      <h2>शुरू कैसे करें?</h2>
+      <ol>
+        <li>“ग्राहक” में दुकान और संपर्क की जानकारी जोड़ें।</li>
+        <li>“प्रोफाइल चेक” में सार्वजनिक बिज़नेस प्रोफाइल की जाँच करें।</li>
+        <li>WhatsApp मैसेज तैयार करके ग्राहक से अनुमति लेकर संपर्क करें।</li>
+        <li>ग्राहकों का डेटा सुरक्षित रखने के लिए नियमित बैकअप डाउनलोड करें।</li>
+      </ol>
+    </div>
+    <p class="notice">महत्वपूर्ण: यह शुरुआती संस्करण डेटा इसी ब्राउज़र/फोन में सेव करता है। दूसरे फोन पर अपने-आप सिंक नहीं होगा।</p>
+  </section>
+
+  <section id="audit" class="page">
+    <h1>Google Business Profile चेकलिस्ट</h1>
+    <p class="muted">सिर्फ सार्वजनिक जानकारी देखें। बदलाव करने से पहले दुकान के मालिक की अनुमति लें।</p>
+    <form id="auditForm" class="panel">
+      <label>दुकान का नाम<input id="auditName" required placeholder="जैसे: Sharma Mobile Repair"></label>
+      <label>इलाका / शहर<input id="auditArea" placeholder="जैसे: Chandigarh"></label>
+      <div class="checklist">
+        <label class="check"><input type="checkbox" name="auditcheck" value="सही नाम"> सही नाम</label>
+        <label class="check"><input type="checkbox" name="auditcheck" value="सही पता / सर्विस एरिया"> सही पता / सर्विस एरिया</label>
+        <label class="check"><input type="checkbox" name="auditcheck" value="फोन नंबर सही"> फोन नंबर सही</label>
+        <label class="check"><input type="checkbox" name="auditcheck" value="खुलने का समय"> खुलने का समय</label>
+        <label class="check"><input type="checkbox" name="auditcheck" value="फोटो उपलब्ध"> फोटो उपलब्ध</label>
+        <label class="check"><input type="checkbox" name="auditcheck" value="सर्विस / कैटेगरी सही"> सर्विस / कैटेगरी सही</label>
+        <label class="check"><input type="checkbox" name="auditcheck" value="रिव्यू का जवाब"> रिव्यू का जवाब</label>
+      </div>
+      <label>नोट्स<textarea id="auditNotes" rows="3" placeholder="क्या सुधार चाहिए?"></textarea></label>
+      <button class="primary" type="submit">चेकलिस्ट सेव करें</button>
+      <p id="auditMessage" class="success" aria-live="polite"></p>
+    </form>
+    <div class="panel">
+      <h2>Google Maps पर खोजें</h2>
+      <label>दुकान / सर्विस<input id="mapQuery" placeholder="जैसे: electrician Chandigarh"></label>
+      <button id="mapSearch" class="secondary" type="button">Maps में खोजें</button>
+    </div>
+  </section>
+
+  <section id="clients" class="page">
+    <h1>ग्राहक मैनेजर</h1>
+    <form id="clientForm" class="panel">
+      <h2>नया ग्राहक जोड़ें</h2>
+      <label>दुकान / ग्राहक का नाम<input id="clientName" required placeholder="दुकान का नाम"></label>
+      <label>इलाका<input id="clientArea" placeholder="इलाका / शहर"></label>
+      <label>फोन नंबर<input id="clientPhone" inputmode="tel" placeholder="WhatsApp नंबर"></label>
+      <label>काम / सर्विस<input id="clientService" placeholder="जैसे: प्रोफाइल अपडेट"></label>
+      <label>फीस (₹)<input id="clientFee" type="number" min="0" step="1" value="0"></label>
+      <label>स्थिति
+        <select id="clientStatus">
+          <option>नया ग्राहक</option><option>बात करनी है</option><option>काम जारी</option><option>पूरा हुआ</option>
+        </select>
+      </label>
+      <label class="check"><input id="clientPaid" type="checkbox"> पेमेंट मिल गया</label>
+      <button class="primary" type="submit">ग्राहक सेव करें</button>
+      <p id="clientMessage" class="success" aria-live="polite"></p>
+    </form>
+    <div class="panel">
+      <div class="between"><h2>ग्राहक सूची</h2><button id="exportCsv" class="secondary" type="button">CSV बैकअप</button></div>
+      <div id="clientList"><p class="muted">अभी कोई ग्राहक नहीं जोड़ा गया।</p></div>
+    </div>
+  </section>
+
+  <section id="income" class="page">
+    <h1>कमाई का हिसाब</h1>
+    <div class="panel">
+      <p>नीचे का हिसाब ग्राहक सूची में डाली गई फीस और पेमेंट की स्थिति के आधार पर है।</p>
+      <div class="cards">
+        <article class="stat"><span>कुल फीस</span><strong id="incomeAll">₹0</strong></article>
+        <article class="stat"><span>मिली रकम</span><strong id="incomePaid">₹0</strong></article>
+        <article class="stat"><span>बाकी रकम</span><strong id="incomeDue">₹0</strong></article>
+      </div>
+      <button id="exportCsv2" class="secondary" type="button">ग्राहकों का बैकअप डाउनलोड करें</button>
+    </div>
+    <div class="panel">
+      <h2>सुरक्षा सुझाव</h2>
+      <ul>
+        <li>किसी ग्राहक का पासवर्ड या OTP न लें।</li>
+        <li>Google Business Profile की सेवा की फीस अपनी सेवा के लिए लें; Google की लिस्टिंग बनाना खुद मुफ्त है।</li>
+        <li>नकली रिव्यू या रैंकिंग की गारंटी न दें।</li>
+        <li>CSV बैकअप सुरक्षित जगह रखें; इसमें फोन नंबर हो सकते हैं।</li>
+      </ul>
+    </div>
+  </section>
+</main>
+<footer>LocalKhoj Business Manager · शुरुआती PWA संस्करण</footer>
+<script src="app.js"></script>
+</body>
+</html>
